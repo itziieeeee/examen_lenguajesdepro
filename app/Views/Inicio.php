@@ -1227,6 +1227,46 @@
   border-radius: 8px;
   border: 2px dashed #000;
 }
+
+.menu-comentarios {
+    width: 250px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 8px;
+    margin-top: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.titulo-comentarios {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+}
+
+.opcion-comentario {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.opcion-comentario:hover {
+    background: #f1f1f1;
+    transform: translateX(3px);
+}
+
+.comentario-publicado {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin-top: 8px;
+    font-size: 14px;
+}
 .stack-empty i {
   font-size: 26px;
   color: var(--red);
@@ -1764,7 +1804,31 @@
     </div>
     <div class="modal-section">
       <h4>Pila de Historial (tope = acción más reciente)</h4>
-      <div id="reporteList"></div>
+      <div id="reporteList">
+
+  <?php if (empty($historial)): ?>
+
+    <div class="empty-box">
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <p>Aún no hay actividad</p>
+      <span>tus acciones aparecerán aquí</span>
+    </div>
+
+  <?php else: ?>
+
+    <?php foreach ($historial as $i => $accion): ?>
+      <div class="reporte-item<?= $i === 0 ? ' ultima' : '' ?>">
+        <span class="reporte-tag tag-<?= $accion['tipo'] ?>">
+          <i class="fa-solid fa-heart"></i> <?= $accion['tipo'] ?>
+        </span>
+        <span><?= esc($accion['usuario']) ?></span>
+        <span class="reporte-hora"><?= $accion['hora'] ?></span>
+      </div>
+    <?php endforeach; ?>
+
+  <?php endif; ?>
+
+</div>
     </div>
   </div>
 </div>
@@ -1785,50 +1849,125 @@
 <script src="<?= base_url('JS/main.js') ?>"></script>
 
 <script>
-  // Autoplay forzado del video
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('video[autoplay]').forEach(function (v) {
-      v.muted = true;
-      v.setAttribute('muted', '');
-      var p = v.play();
-      if (p !== undefined) {
-        p.catch(function () {
-          document.addEventListener('click', function once() {
-            v.play();
-            document.removeEventListener('click', once);
-          }, { once: true });
-        });
-      }
-    });
+ document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('video[autoplay]').forEach(function (v) {
+    v.muted = true;
+    v.setAttribute('muted', '');
+    var p = v.play();
+    if (p !== undefined) {
+      p.catch(function () {
+        document.addEventListener('click', function once() {
+          v.play();
+          document.removeEventListener('click', once);
+        }, { once: true });
+      });
+    }
+  });
 
-    // Comentarios en la card del video
-    const form = document.getElementById('fcForm');
-    const input = document.getElementById('fcInput');
-    const list = document.getElementById('fcList');
-    const count = document.getElementById('fcCount');
-    if (!form) return;
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const texto = input.value.trim();
-      if (!texto) return;
-
-      const item = document.createElement('div');
-      item.className = 'fc-item';
-      item.innerHTML = `
-        <img src="https://picsum.photos/seed/maxpixup/60" alt="">
-        <div class="fc-body">
-          <div class="fc-name">Tú <span class="fc-time">ahora</span></div>
-          <div class="fc-text"></div>
-        </div>
-      `;
-      item.querySelector('.fc-text').textContent = texto;
-      list.appendChild(item);
-
-      count.textContent = parseInt(count.textContent, 10) + 1;
-      input.value = '';
-      list.scrollTop = list.scrollHeight;
+  // Botón de Reporte — AHORA aquí, fuera del submit
+  document.getElementById('navReporte')?.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('modalReporte').classList.add('open');
+  });
+  document.querySelectorAll('[data-cerrar-modal]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById('modalReporte').classList.remove('open');
     });
   });
+
+  // Comentarios en la card del video
+  const form = document.getElementById('fcForm');
+  const input = document.getElementById('fcInput');
+  const list = document.getElementById('fcList');
+  const count = document.getElementById('fcCount');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    const item = document.createElement('div');
+    item.className = 'fc-item';
+    item.innerHTML = `
+      <img src="https://picsum.photos/seed/maxpixup/60" alt="">
+      <div class="fc-body">
+        <div class="fc-name">Tú <span class="fc-time">ahora</span></div>
+        <div class="fc-text"></div>
+      </div>
+    `;
+    item.querySelector('.fc-text').textContent = texto;
+    list.appendChild(item);
+
+    count.textContent = parseInt(count.textContent, 10) + 1;
+    input.value = '';
+    list.scrollTop = list.scrollHeight;
+  });
+});
+</script>
+<script>
+
+const comentarios = [
+    "¡Me encorazona! ❤️",
+    "¡+1000 de aura! 🔥",
+    "-1000 de aura 🤢",
+    "Me enrisa 😂",
+    "👏"
+];
+
+document.querySelectorAll(".act-comment").forEach(boton => {
+
+    boton.onclick = function() {
+
+        let post = boton.closest(".post");
+
+        // Si ya existe el menú, lo cerramos
+        let menuExistente = post.querySelector(".menu-comentarios");
+
+        if (menuExistente) {
+            menuExistente.remove();
+            return;
+        }
+
+        // Crear menú
+        let lista = document.createElement("div");
+        lista.className = "menu-comentarios";
+
+        // Título
+        let titulo = document.createElement("div");
+        titulo.className = "titulo-comentarios";
+        titulo.innerHTML = "Selecciona un comentario";
+        lista.appendChild(titulo);
+
+        // Opciones
+        comentarios.forEach(comentario => {
+
+            let opcion = document.createElement("div");
+            opcion.className = "opcion-comentario";
+            opcion.innerHTML = comentario;
+
+            opcion.onclick = function() {
+
+             let nuevo = document.createElement("p");
+            nuevo.className = "comentario-publicado";
+            nuevo.innerHTML = "<b>Tú:</b> " + comentario;
+
+            post.appendChild(nuevo);
+
+            // Registrar en el historial
+            const idPost = post.dataset.postId;
+            fetch(window.BASE_URL + 'historial_controller/registrar/COMENTARIO/' + idPost);
+
+            lista.remove();
+};
+
+            lista.appendChild(opcion);
+        });
+
+        post.appendChild(lista);
+    };
+
+});
+
 </script>
 </html>
