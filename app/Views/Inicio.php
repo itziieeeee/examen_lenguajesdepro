@@ -1242,7 +1242,10 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot1.png') ?>"></div>
         <div class="post-caption"><b>Selena:</b> ¡Me encantan mis nuevos accesorios!</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(1, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/1') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1259,7 +1262,10 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot2.png') ?>"></div>
         <div class="post-caption"><b>Britani Spears:</b> Usando insta en mi computadora nueva</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(2, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/2') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1276,7 +1282,10 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot3.png') ?>"></div>
         <div class="post-caption"><b>Adam Sandler:</b> Con el elenco de Rapidos y Furiosos</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(3, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/3') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1293,7 +1302,10 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot4.png') ?>"></div>
         <div class="post-caption"><b>The Rock:</b> Nuevo proyecto en el que estuve trabajando.</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(4, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/4') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1310,7 +1322,10 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot5.png') ?>"></div>
         <div class="post-caption"><b>MAYBELLINE:</b> ¡Miren qué lindo quedó todo hoy!</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(5, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/5') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1327,7 +1342,10 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot6.png') ?>"></div>
         <div class="post-caption"><b>Pepsi:</b> Sin palabras.</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(6, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/6') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1344,7 +1362,10 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot7.png') ?>"></div>
         <div class="post-caption"><b>Regina:</b> Sesión de fotos en el estudio con las Mean Girls.</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(7, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/7') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1361,7 +1382,10 @@
         <div class="post-media"><img src="https://picsum.photos/seed/post8/700/560"></div>
         <div class="post-caption"><b>Sikowitz:</b> ¡La creatividad no tiene límites!</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(8, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/8') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1378,7 +1402,10 @@
         <div class="post-media"><div class="tape"></div><img src="https://picsum.photos/seed/post9/700/560"></div>
         <div class="post-caption"><b>Tori Vega:</b> Recuerdos de la gira</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(9, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/9') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1395,7 +1422,10 @@
         <div class="post-media"><img src="https://picsum.photos/seed/post10/700/560"></div>
         <div class="post-caption"><b>Cat Valentine:</b> ¡Una tarde perfecta!</div>
         <div class="post-actions">
-          <div class="pact act-like"><i class="fa-regular fa-heart"></i> LIKE</div>
+          <?php $tieneLike = in_array(10, $likes ?? []); ?>
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/10') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+        </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1426,10 +1456,19 @@
       <div class="panel">
         <div class="panel-head ph-green"><i class="fa-solid fa-layer-group"></i> PILA DE LIKES (LIFO)</div>
         <div class="stack-list" id="likesStackList">
-          <div class="empty-box"><i class="fa-solid fa-heart-crack"></i><p>Aún no das like a nada</p></div>
+          <?php if (empty($likes)): ?>
+            <div class="empty-box"><i class="fa-solid fa-heart-crack"></i><p>Aún no das like a nada</p></div>
+          <?php else: ?>
+            <?php foreach (array_reverse($likes) as $i => $postId): ?>
+              <div class="stack-item<?= $i === 0 ? ' stack-item-top' : '' ?>">
+                <i class="fa-solid fa-heart"></i> Publicación #<?= $postId ?>
+                <?php if ($i === 0): ?><span class="tope-tag">TOPE</span><?php endif; ?>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </div>
         <div class="stack-panel-actions">
-          <button class="btn-block" id="btnQuitarUltimoLike"><i class="fa-solid fa-rotate-left"></i> Retirar último like</button>
+          <a href="<?= base_url('like_controller/quitar') ?>" class="btn-block" id="btnQuitarUltimoLike"><i class="fa-solid fa-rotate-left"></i> Retirar último like</a>
         </div>
       </div>
 
@@ -1464,9 +1503,16 @@
   </div>
 </div>
 
+<script>
+  // BASE_URL global para que TODOS los módulos JS (likes.js, favoritos.js,
+  // comentarios.js, historial/reporte.js, etc.) sepan a qué controlador
+  // de CodeIgniter deben hacer fetch(), sin importar en qué carpeta
+  // termine viviendo el proyecto.
+  window.BASE_URL = "<?= base_url() ?>";
+</script>
 <script src="<?= base_url('JS/pila.js') ?>"></script>
 <script src="<?= base_url('JS/historial.js') ?>"></script>
-<script src="<?= base_url('JS/likes.js') ?>"></script>
+<!-- likes.js ya NO se usa: el like/quitar like ahora se resuelve solo con PHP (Like_controller) -->
 <script src="<?= base_url('JS/comentarios.js') ?>"></script>
 <script src="<?= base_url('JS/favoritos.js') ?>"></script>
 <script src="<?= base_url('JS/reporte.js') ?>"></script>
