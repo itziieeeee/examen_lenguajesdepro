@@ -1099,6 +1099,183 @@
     .feature-comments-form { flex-wrap: wrap; }
     .feature-comments-form button { flex: 1; justify-content: center; }
   }
+  /* ====== TARJETAS VISUALES DE LA PILA DE LIKES / GUARDADOS ====== */
+.stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.stack-list::-webkit-scrollbar { width: 6px; }
+.stack-list::-webkit-scrollbar-track { background: #e5e5e5; border-radius: 10px; }
+.stack-list::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 10px; }
+
+/* Tarjeta individual */
+.stack-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(to bottom, #ffffff, #f4f7ff);
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 3px 0 #000;
+  position: relative;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.stack-card:hover {
+  transform: translateY(-2px) translateX(2px);
+  box-shadow: 0 5px 0 #000;
+}
+
+/* La tarjeta del TOPE (último like) se resalta */
+.stack-card.tope {
+  background: linear-gradient(to bottom, var(--yellow), #ffcc00);
+  border-color: #000;
+}
+
+.stack-card.tope::after {
+  content: 'TOPE';
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  background: var(--red);
+  color: #fff;
+  font-family: 'Impact', sans-serif;
+  font-size: 8px;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 0 2px 0 #000;
+}
+
+/* Miniatura de la publicación */
+.stack-card .stack-thumb {
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  border: 2px solid #000;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #ccc;
+  box-shadow: 0 2px 0 #000;
+}
+
+/* Avatar pequeño superpuesto */
+.stack-card .stack-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  object-fit: cover;
+  position: absolute;
+  left: 40px;
+  bottom: 4px;
+  background: #fff;
+  box-shadow: 0 1px 0 #000;
+}
+
+/* Info de texto */
+.stack-card .stack-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.stack-card .stack-user {
+  font-family: 'Impact', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: var(--navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stack-card.tope .stack-user { color: #000; }
+
+.stack-card .stack-caption {
+  font-size: 9px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stack-card .stack-icon {
+  font-size: 14px;
+  color: var(--red);
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+
+.stack-card.tope .stack-icon { color: #000; }
+
+/* Estado vacío bonito */
+.stack-empty {
+  text-align: center;
+  padding: 20px 12px;
+  background: linear-gradient(to bottom, #ffe0e0, #ffb8b8);
+  border-radius: 8px;
+  border: 2px dashed #000;
+}
+.stack-empty i {
+  font-size: 26px;
+  color: var(--red);
+  display: block;
+  margin-bottom: 6px;
+}
+.stack-empty p {
+  font-family: 'Impact', sans-serif;
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.5px;
+}
+.stack-empty span {
+  font-size: 9px;
+  color: #a03030;
+  font-style: italic;
+}
+
+/* ====== TARJETAS DE GUARDADOS (mismo estilo) ====== */
+.fav-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(to bottom, #fffbe6, #ffe680);
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 6px;
+  margin: 6px 8px;
+  box-shadow: 0 3px 0 #000;
+  position: relative;
+  transition: transform 0.15s;
+  cursor: pointer;
+}
+.fav-card:hover { transform: translateY(-2px) translateX(2px); }
+.fav-card .stack-thumb {
+  width: 46px; height: 46px; border-radius: 8px;
+  border: 2px solid #000; object-fit: cover; flex-shrink: 0;
+  box-shadow: 0 2px 0 #000;
+}
+.fav-card .stack-info { flex: 1; min-width: 0; }
+.fav-card .stack-user {
+  font-family: 'Impact', sans-serif; font-size: 11px;
+  color: var(--navy); letter-spacing: 0.4px;
+}
+.fav-card .stack-caption {
+  font-size: 9px; color: #555;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fav-card .stack-icon { color: var(--green); font-size: 14px; }
 </style>
 <body onload="brython()">
 <div class="wrap">
@@ -1231,25 +1408,59 @@
         <div class="sort"><i class="fa-solid fa-arrow-down-wide-short"></i> Recientes</div>
       </div>
 
-      <!-- PUBLICACIÓN 1 -->
-      <article class="post" data-post-id="1">
-        <div class="post-top">
-          <div class="post-avatar"><img src="<?= base_url('IMG/p1.png') ?>"></div>
-          <div><div class="post-uname">Selena Gomez <i class="fa-solid fa-circle-check"></i></div><div class="post-time">hace 5 min</div></div>
-          <i class="fa-solid fa-ellipsis post-more"></i>
+     
+<!-- PUBLICACIÓN 1 -->
+<article class="post" data-post-id="1">
+
+    <div class="post-top">
+        <div class="post-avatar">
+            <img src="<?= base_url('IMG/p1.png') ?>">
         </div>
-        <div class="post-label"></div>
-        <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot1.png') ?>"></div>
-        <div class="post-caption"><b>Selena:</b> ¡Me encantan mis nuevos accesorios!</div>
-        <div class="post-actions">
-          <?php $tieneLike = in_array(1, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/1') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+
+        <div>
+            <div class="post-uname">
+                Selena Gomez <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="post-time">hace 5 min</div>
+        </div>
+
+        <i class="fa-solid fa-ellipsis post-more"></i>
+    </div>
+
+    <div class="post-label"></div>
+
+    <div class="post-media">
+        <div class="tape"></div>
+        <img src="<?= base_url('IMG/pot1.png') ?>">
+    </div>
+
+    <div class="post-caption">
+        <b>Selena:</b> ¡Me encantan mis nuevos accesorios!
+    </div>
+
+    <div class="post-actions">
+
+        <?php $tieneLike = in_array(1, $likes ?? []); ?>
+
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/1') : base_url('like_controller/agregar/1') ?>" 
+           class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+
         </a>
-          <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+
+        <div class="pact act-comment">
+            <i class="fa-regular fa-comment"></i> COMENTAR
         </div>
-      </article>
+
+        <div class="pact act-save">
+            <i class="fa-regular fa-bookmark"></i> GUARDAR
+        </div>
+
+    </div>
+</article>
+
+
 
       <!-- PUBLICACIÓN 2 -->
       <article class="post" data-post-id="2">
@@ -1262,10 +1473,12 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot2.png') ?>"></div>
         <div class="post-caption"><b>Britani Spears:</b> Usando insta en mi computadora nueva</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(2, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/2') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/2') : base_url('like_controller/agregar/2') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1282,10 +1495,12 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot3.png') ?>"></div>
         <div class="post-caption"><b>Adam Sandler:</b> Con el elenco de Rapidos y Furiosos</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(3, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/3') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/3') : base_url('like_controller/agregar/3') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1302,10 +1517,12 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot4.png') ?>"></div>
         <div class="post-caption"><b>The Rock:</b> Nuevo proyecto en el que estuve trabajando.</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(4, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/4') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/4') : base_url('like_controller/agregar/4') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1322,10 +1539,12 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot5.png') ?>"></div>
         <div class="post-caption"><b>MAYBELLINE:</b> ¡Miren qué lindo quedó todo hoy!</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(5, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/5') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/5') : base_url('like_controller/agregar/5') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1342,10 +1561,12 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot6.png') ?>"></div>
         <div class="post-caption"><b>Pepsi:</b> Sin palabras.</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(6, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/6') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/6') : base_url('like_controller/agregar/6') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1362,10 +1583,12 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot7.png') ?>"></div>
         <div class="post-caption"><b>Regina:</b> Sesión de fotos en el estudio con las Mean Girls.</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(7, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/7') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/7') : base_url('like_controller/agregar/7') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1382,10 +1605,12 @@
         <div class="post-media"><img src="https://picsum.photos/seed/post8/700/560"></div>
         <div class="post-caption"><b>Sikowitz:</b> ¡La creatividad no tiene límites!</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(8, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/8') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/8') : base_url('like_controller/agregar/8') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1402,10 +1627,12 @@
         <div class="post-media"><div class="tape"></div><img src="https://picsum.photos/seed/post9/700/560"></div>
         <div class="post-caption"><b>Tori Vega:</b> Recuerdos de la gira</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(9, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/9') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/9') : base_url('like_controller/agregar/9') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1422,10 +1649,12 @@
         <div class="post-media"><img src="https://picsum.photos/seed/post10/700/560"></div>
         <div class="post-caption"><b>Cat Valentine:</b> ¡Una tarde perfecta!</div>
         <div class="post-actions">
+
           <?php $tieneLike = in_array(10, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar') : base_url('like_controller/agregar/10') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+        <a href="<?= $tieneLike ? base_url('like_controller/quitar/10') : base_url('like_controller/agregar/10') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
           <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
         </a>
+
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
           <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
         </div>
@@ -1455,22 +1684,59 @@
 
       <div class="panel">
         <div class="panel-head ph-green"><i class="fa-solid fa-layer-group"></i> PILA DE LIKES (LIFO)</div>
-        <div class="stack-list" id="likesStackList">
-          <?php if (empty($likes)): ?>
-            <div class="empty-box"><i class="fa-solid fa-heart-crack"></i><p>Aún no das like a nada</p></div>
-          <?php else: ?>
-            <?php foreach (array_reverse($likes) as $i => $postId): ?>
-              <div class="stack-item<?= $i === 0 ? ' stack-item-top' : '' ?>">
-                <i class="fa-solid fa-heart"></i> Publicación #<?= $postId ?>
-                <?php if ($i === 0): ?><span class="tope-tag">TOPE</span><?php endif; ?>
-              </div>
-            <?php endforeach; ?>
-          <?php endif; ?>
+       <div class="stack-list" id="likesStackList">
+
+  <?php if (empty($likes)): ?>
+
+    <div class="stack-empty">
+      <i class="fa-solid fa-heart-crack"></i>
+      <p>Aún no das like a nada</p>
+    </div>
+
+  <?php else: ?>
+
+    <?php
+      // array_reverse para que el último like quede ARRIBA (tope de la pila)
+      $pilaInvertida = array_reverse($likes);
+    ?>
+
+    <?php foreach ($pilaInvertida as $i => $postId): ?>
+      <?php
+        $pub = $publicaciones[$postId] ?? null;
+        $esTope = ($i === 0);
+      ?>
+
+      <?php if ($pub): ?>
+
+        <div class="stack-card<?= $esTope ? ' tope' : '' ?>" data-post-id="<?= $postId ?>">
+          <img class="stack-thumb" src="<?= base_url($pub['imagen']) ?>" alt="">
+          <img class="stack-avatar" src="<?= base_url($pub['avatar']) ?>" alt="">
+          <div class="stack-info">
+            <div class="stack-user"><?= esc($pub['usuario']) ?></div>
+            <div class="stack-caption"><?= esc($pub['caption']) ?></div>
+          </div>
+          <i class="fa-solid fa-heart stack-icon"></i>
         </div>
-        <div class="stack-panel-actions">
-          <a href="<?= base_url('like_controller/quitar') ?>" class="btn-block" id="btnQuitarUltimoLike"><i class="fa-solid fa-rotate-left"></i> Retirar último like</a>
+
+      <?php else: ?>
+
+        <div class="stack-card<?= $esTope ? ' tope' : '' ?>" data-post-id="<?= $postId ?>">
+          <div class="stack-thumb" style="display:flex;align-items:center;justify-content:center;">
+            <i class="fa-solid fa-image" style="color:#888;"></i>
+          </div>
+          <div class="stack-info">
+            <div class="stack-user">Publicación #<?= $postId ?></div>
+            <div class="stack-caption">(sin datos)</div>
+          </div>
+          <i class="fa-solid fa-heart stack-icon"></i>
         </div>
-      </div>
+
+      <?php endif; ?>
+    <?php endforeach; ?>
+
+  <?php endif; ?>
+
+</div>
 
       <div class="panel">
         <div class="panel-head ph-cyan"><i class="fa-solid fa-bookmark"></i> PUBLICACIONES GUARDADAS</div>

@@ -1,8 +1,15 @@
+
 <?php
 
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
+
 $routes->get('/', 'Home::index');
-/*ruta para el <login></login>*/
+
+/*ruta para el login*/
 $routes->get('login', 'Home::login');
+
+/*rutas para los Likes*/
+$routes->get('like_controller/agregar/(:num)', 'LikeController::agregar/$1');
+$routes->get('like_controller/quitar/(:num)', 'LikeController::quitar/$1');
