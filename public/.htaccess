@@ -1,6 +1,9 @@
 # Disable directory browsing
 Options -Indexes
 
+# Permitir que Apache pase a index.php el resto de la ruta (PATH_INFO)
+AcceptPathInfo On
+
 # ----------------------------------------------------------------------
 # Rewrite engine
 # ----------------------------------------------------------------------

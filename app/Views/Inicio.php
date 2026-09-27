@@ -3,1320 +3,1321 @@
 <head>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PixUp</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="<?= base_url('CSS/iniciocss.css'); ?>">
-</head>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixUp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="<?= base_url('CSS/iniciocss.css'); ?>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+    }
 
-  :root {
-    --blue-bg: #1a1a5e;
-    --blue-bg-2: #2b2b8a;
-    --blue-bg-3: #3a1f7a;
-    --navy: #1a3a8f;
-    --navy-dark: #0d1f5c;
-    --sky-1: #cce0ff;
-    --sky-2: #99c0ff;
-    --orange-1: #ff8800;
-    --orange-2: #cc4400;
-    --yellow: #ffdd00;
-    --yellow-2: #ffe680;
-    --red: #cc0000;
-    --red-dark: #880000;
-    --pink-1: #d946a8;
-    --pink-2: #a83b9c;
-    --green: #22c55e;
-    --ink: #000;
-  }
+    :root {
+      --blue-bg: #1a1a5e;
+      --blue-bg-2: #2b2b8a;
+      --blue-bg-3: #3a1f7a;
+      --navy: #1a3a8f;
+      --navy-dark: #0d1f5c;
+      --sky-1: #cce0ff;
+      --sky-2: #99c0ff;
+      --orange-1: #ff8800;
+      --orange-2: #cc4400;
+      --yellow: #ffdd00;
+      --yellow-2: #ffe680;
+      --red: #cc0000;
+      --red-dark: #880000;
+      --pink-1: #d946a8;
+      --pink-2: #a83b9c;
+      --green: #22c55e;
+      --ink: #000;
+    }
 
-  body {
-    background: var(--blue-bg);
-    background-image:
-      radial-gradient(circle at 20% 20%, var(--blue-bg-2) 0%, transparent 40%),
-      radial-gradient(circle at 80% 80%, var(--blue-bg-3) 0%, transparent 40%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30 Z' fill='none' stroke='%23444' stroke-width='0.5' opacity='0.15'/%3E%3C/svg%3E");
-    padding: 10px;
-    min-height: 100vh;
-    color: #000;
-  }
+    body {
+      background: var(--blue-bg);
+      background-image:
+        radial-gradient(circle at 20% 20%, var(--blue-bg-2) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, var(--blue-bg-3) 0%, transparent 40%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30 Z' fill='none' stroke='%23444' stroke-width='0.5' opacity='0.15'/%3E%3C/svg%3E");
+      padding: 10px;
+      min-height: 100vh;
+      color: #000;
+    }
 
-  a { text-decoration: none; color: inherit; }
-  button { font-family: inherit; cursor: pointer; }
-  img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+    img { display: block; max-width: 100%; }
 
-  .wrap {
-    max-width: 1280px;
-    margin: 0 auto;
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* HEADER */
+    .topbar {
+      background: linear-gradient(to bottom, var(--orange-1), var(--orange-2));
+      border: 2px solid #000;
+      border-radius: 20px;
+      box-shadow: 0 4px 0 #000;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topbar::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -10%;
+      width: 60px;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transform: rotate(20deg);
+      pointer-events: none;
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: linear-gradient(to bottom, var(--yellow), #ffaa00);
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #000;
+      box-shadow: 2px 3px 0 #000;
+      transform: rotate(-6deg);
+    }
+
+    .brand-name {
+      font-family: 'Impact', 'Arial Black', sans-serif;
+      font-size: 30px;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 3px 3px 0 #cc3300, 4px 4px 0 #000;
+      line-height: 1;
+    }
+
+    .brand-tag {
+      font-size: 10px;
+      color: #fff;
+      font-style: italic;
+      text-shadow: 1px 1px 0 #000;
+      margin-top: 2px;
+    }
+
+    .search-pill {
+      flex: 1;
+      max-width: 360px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 30px;
+      padding: 4px 4px 4px 14px;
+      box-shadow: 0 3px 0 #000, inset 2px 2px 0 rgba(0,0,0,0.08);
+    }
+
+    .search-pill input {
+      border: none;
+      outline: none;
+      font-size: 12px;
+      flex: 1;
+      background: transparent;
+      color: #000;
+    }
+
+    .search-pill button {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--red);
+      border: 2px solid #000;
+      color: #ffffff;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 0 #000;
+      transition: transform 0.1s;
+    }
+
+    .search-pill button:active { transform: translateY(2px); box-shadow: 0 0 0 #000; }
+
+    .head-actions { display: flex; align-items: center; gap: 8px; }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red);
+      font-size: 15px;
+      position: relative;
+      box-shadow: 0 3px 0 #000;
+      transition: transform 0.1s;
+    }
+
+    .icon-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
+
+    .icon-btn .dot {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--yellow);
+      border: 2px solid #000;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .btn-login {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: #000;
+      border: 2px solid #000;
+      border-radius: 25px;
+      padding: 10px 22px;
+      font-family: 'Impact', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 0 #000;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+    }
+
+    .btn-login i { color: var(--red); font-size: 15px; }
+    .btn-login:hover { background: #ffe74d; }
+    .btn-login:active { transform: translateY(4px); box-shadow: 0 0 0 #000; }
+
+    /* NAVBAR */
+    .navpills {
+      background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
+      border: 2px solid #000;
+      border-radius: 20px;
+      box-shadow: 0 4px 0 #000;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .navpills a {
+      font-family: 'Impact', sans-serif;
+      color: #ffffff;
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-shadow: 1px 1px 0 #000;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .navpills a.active {
+      background: var(--yellow);
+      color: #000;
+      border-color: #000;
+      box-shadow: 0 3px 0 #000;
+      text-shadow: none;
+    }
+
+    .navpills a:not(.active):hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* LAYOUT */
+    .layout {
+      display: grid;
+      grid-template-columns: 250px 1fr 270px;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: sticky;
+      top: 10px;
+    }
+
+    /* PANEL */
+    .panel {
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 12px;
+      box-shadow: 0 4px 0 #000;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      font-family: 'Impact', sans-serif;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid #000;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    .panel-head i { color: var(--yellow); }
+
+    .ph-pink   { background: linear-gradient(to bottom, var(--orange-1), var(--orange-2)); }
+    .ph-blue   { background: linear-gradient(to bottom, var(--navy), var(--navy-dark)); }
+    .ph-purple { background: linear-gradient(to bottom, var(--pink-1), var(--pink-2)); }
+    .ph-cyan   { background: linear-gradient(to bottom, var(--orange-1), var(--orange-2)); }
+    .ph-green  { background: linear-gradient(to bottom, var(--green), #128a3e); }
+
+    /* CONTACTOS */
+    .contacts-wrap {
+      background: linear-gradient(to bottom, var(--sky-1), var(--sky-2));
+      padding: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .contacts-wrap::-webkit-scrollbar { width: 6px; }
+    .contacts-wrap::-webkit-scrollbar-track { background: #b8d0f0; border-radius: 10px; }
+    .contacts-wrap::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 10px; }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 8px;
+      padding: 5px 6px;
+      box-shadow: 0 3px 0 #000;
+      transition: transform 0.15s;
+    }
+
+    .contact-row:hover { transform: translateX(3px); }
+
+    .contact-row img {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 2px solid #000;
+      flex-shrink: 0;
+    }
+
+    .contact-row .cname {
+      font-family: 'Impact', sans-serif;
+      font-size: 11px;
+      color: var(--navy);
+      letter-spacing: 0.3px;
+    }
+
+    .contact-row .cstat {
+      font-size: 8px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 1px;
+    }
+
+    .contact-row .cstat i { color: var(--green); font-size: 6px; }
+
+    .contact-row button {
+      margin-left: auto;
+      background: var(--yellow);
+      border: 2px solid #000;
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-family: 'Impact', sans-serif;
+      font-size: 11px;
+      color: #000;
+      box-shadow: 0 2px 0 #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s, background 0.15s;
+    }
+
+    .contact-row button:hover { background: #ffe74d; }
+    .contact-row button:active { transform: translateY(2px); box-shadow: 0 0 0 #000; }
+
+    /* EMPTY BOX */
+    .empty-box {
+      background: linear-gradient(to bottom, #fff7cc, var(--yellow-2));
+      padding: 24px 14px;
+      text-align: center;
+    }
+
+    .empty-box i {
+      font-size: 28px;
+      color: var(--orange-2);
+      margin-bottom: 8px;
+      display: block;
+      text-shadow: 1px 1px 0 #fff;
+    }
+
+    .empty-box p {
+      font-family: 'Impact', sans-serif;
+      font-size: 12px;
+      color: #7a5200;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    .empty-box span {
+      font-size: 9px;
+      color: #a37a2d;
+      display: block;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .notif-empty { background: linear-gradient(to bottom, #ffe0e0, #ffb8b8); }
+    .notif-empty i { color: var(--red); }
+    .notif-empty p { color: var(--red); }
+    .notif-empty span { color: #a03030; }
+
+    .saved-empty { background: linear-gradient(to bottom, #fff7cc, var(--yellow-2)); }
+
+    /* MI MURO */
+    .wall-card {
+      background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
+      color: #ffffff;
+      border: 2px solid #000;
+      border-radius: 12px;
+      box-shadow: 0 4px 0 #000;
+      overflow: hidden;
+    }
+
+    .wall-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 16px 12px 12px;
+    }
+
+    .avatar-ring {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: conic-gradient(var(--yellow), var(--orange-1), var(--pink-1), var(--yellow));
+      padding: 4px;
+      margin-bottom: 8px;
+      box-shadow: 0 3px 0 #000;
+    }
+
+    .avatar-ring img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #000;
+    }
+
+    .wall-hero .uname {
+      font-family: 'Impact', sans-serif;
+      font-size: 18px;
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 #000;
+      letter-spacing: 1.5px;
+    }
+
+    .wall-hero .uhandle {
+      font-size: 10px;
+      color: #c9d4ff;
+      margin-top: 2px;
+      font-style: italic;
+    }
+
+    .mood-row {
+      background: #ffffff;
+      color: #000;
+      margin: 0 12px 12px;
+      border-radius: 6px;
+      border: 2px solid #000;
+      padding: 6px 10px;
+      font-size: 10px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 3px 0 #000;
+    }
+
+    .mood-row .flame {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--yellow);
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff6600;
+      font-size: 13px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      padding: 0 12px 14px;
+    }
+
+    .stat-cell {
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      text-align: center;
+      padding: 6px 2px;
+    }
+
+    .stat-cell b {
+      display: block;
+      font-family: 'Impact', sans-serif;
+      font-size: 15px;
+      color: var(--yellow);
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    .stat-cell span {
+      font-size: 8px;
+      color: #cfd8ff;
+      letter-spacing: 0.5px;
+    }
+
+    /* CENTRO */
+    .center-col { display: flex; flex-direction: column; gap: 10px; }
+
+    .feature-card {
+      background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
+      border: 2px solid #000;
+      border-radius: 14px;
+      box-shadow: 0 5px 0 #000;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 12px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '✦';
+      position: absolute;
+      top: 8px;
+      right: 14px;
+      font-size: 26px;
+      color: rgba(255, 255, 255, 0.4);
+      pointer-events: none;
+    }
+
+    .feature-media {
+      border-radius: 8px;
+      border: 2px solid #000;
+      overflow: hidden;
+      box-shadow: 0 3px 0 #000;
+      aspect-ratio: 16 / 10;
+      background: #000;
+      position: relative;
+    }
+
+    .feature-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    .feature-copy { color: #ffffff; }
+
+    .feature-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--yellow);
+      color: #000;
+      font-family: 'Impact', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 2px solid #000;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 0 #000;
+    }
+
+    .feature-eyebrow i { color: var(--red); }
+
+    .feature-copy h2 {
+      font-family: 'Impact', sans-serif;
+      font-size: 20px;
+      line-height: 1.15;
+      letter-spacing: 0.5px;
+      text-shadow: 2px 2px 0 #000;
+      margin-bottom: 6px;
+    }
+
+    .feature-copy p {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #ffe6f5;
+      margin-bottom: 10px;
+    }
+
+    .feature-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow);
+      color: #000;
+      border: 2px solid #000;
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-family: 'Impact', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      box-shadow: 0 3px 0 #000;
+      transition: transform 0.1s, background 0.15s;
+    }
+
+    .feature-btn i { color: var(--red); }
+    .feature-btn:hover { background: #ffe74d; }
+    .feature-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
+
+    /* ---------- SECCIÓN COMENTARIOS EN FEATURE CARD ---------- */
+    .feature-comments {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 2px solid #000;
+      border-radius: 10px;
+      box-shadow: 0 3px 0 #000;
+      overflow: hidden;
+    }
+
+    .feature-comments-head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
+      color: #fff;
+      font-family: 'Impact', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      padding: 5px 10px;
+      text-shadow: 1px 1px 0 #000;
+      border-bottom: 2px solid #000;
+    }
+
+    .feature-comments-head i { color: var(--yellow); }
+
+    .feature-comments-head .count {
+      margin-left: auto;
+      background: var(--yellow);
+      color: #000;
+      border: 2px solid #000;
+      border-radius: 20px;
+      padding: 1px 8px;
+      font-size: 10px;
+      text-shadow: none;
+    }
+
+    .feature-comments-list {
+      max-height: 150px;
+      overflow-y: auto;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .feature-comments-list::-webkit-scrollbar { width: 6px; }
+    .feature-comments-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    .feature-comments-list::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 10px; }
+
+    .fc-item {
+      display: flex;
+      gap: 7px;
+      align-items: flex-start;
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 8px;
+      padding: 5px 7px;
+      box-shadow: 0 2px 0 #000;
+    }
+
+    .fc-item img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .fc-item .fc-body { flex: 1; min-width: 0; }
+
+    .fc-item .fc-name {
+      font-family: 'Impact', sans-serif;
+      font-size: 10.5px;
+      color: var(--navy);
+      letter-spacing: 0.4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .fc-item .fc-name .fc-time {
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 8px;
+      color: #888;
+      font-weight: normal;
+      letter-spacing: 0;
+    }
+
+    .fc-item .fc-text {
+      font-size: 10.5px;
+      color: #222;
+      line-height: 1.35;
+      margin-top: 1px;
+      word-wrap: break-word;
+    }
+
+    .feature-comments-form {
+      display: flex;
+      gap: 6px;
+      padding: 7px 8px;
+      background: linear-gradient(to bottom, var(--pink-1), var(--pink-2));
+      border-top: 2px solid #000;
+    }
+
+    .feature-comments-form input {
+      flex: 1;
+      border: 2px solid #000;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 11px;
+      outline: none;
+      background: #fff;
+      box-shadow: inset 2px 2px 0 rgba(0,0,0,0.08);
+    }
+
+    .feature-comments-form input:focus {
+      box-shadow: 0 0 0 3px var(--yellow), inset 2px 2px 0 rgba(0,0,0,0.08);
+    }
+
+    .feature-comments-form button {
+      background: var(--yellow);
+      border: 2px solid #000;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-family: 'Impact', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: #000;
+      box-shadow: 0 3px 0 #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.1s, background 0.15s;
+    }
+
+    .feature-comments-form button i { color: var(--red); }
+    .feature-comments-form button:hover { background: #ffe74d; }
+    .feature-comments-form button:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
+
+    /* COMPOSER */
+    .composer {
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 14px;
+      box-shadow: 0 5px 0 #000;
+      padding: 10px 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .composer .cav {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 3px 0 #000;
+    }
+
+    .composer .cav img { width: 100%; height: 100%; object-fit: cover; }
+
+    .composer input {
+      flex: 1;
+      border: 2px solid #000;
+      border-radius: 22px;
+      padding: 10px 16px;
+      font-size: 12px;
+      outline: none;
+      background: #ffffff;
+      box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .composer input:focus { box-shadow: 0 0 0 3px var(--yellow), inset 2px 2px 0 rgba(0, 0, 0, 0.08); }
+
+    .composer button {
+      background: var(--yellow);
+      border: 2px solid #000;
+      border-radius: 22px;
+      padding: 10px 16px;
+      font-family: 'Impact', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #000;
+      box-shadow: 0 3px 0 #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s, background 0.15s;
+    }
+
+    .composer button i { color: var(--red); }
+    .composer button:hover { background: #ffe74d; }
+    .composer button:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
+
+    .feed-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-family: 'Impact', sans-serif;
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      padding: 2px 4px;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .feed-title .sort {
+      background: var(--navy);
+      border: 2px solid #000;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 10px;
+      color: #ffffff;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      box-shadow: 0 3px 0 #000;
+      letter-spacing: 1px;
+    }
+
+    .feed-title .sort i { color: var(--yellow); }
+
+    /* POST */
+    .post {
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 14px;
+      box-shadow: 0 5px 0 #000;
+      overflow: hidden;
+      transition: transform 0.15s;
+    }
+
+    .post:hover { transform: translateY(-3px); }
+
+    .post-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
+    }
+
+    .post-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--yellow);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #cbd5e1;
+    }
+
+    .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .post-uname {
+      font-family: 'Impact', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    .post-uname i { color: var(--yellow); font-size: 10px; }
+
+    .post-time { font-size: 8.5px; color: #b9c6ff; margin-top: 1px; }
+
+    .post-more { margin-left: auto; color: #cfd8ff; font-size: 13px; }
+
+    .post-label {
+      background: var(--yellow);
+      color: #000;
+      font-family: 'Impact', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      padding: 3px 12px;
+      border-bottom: 2px solid #000;
+    }
+
+    .post-label:empty {
+      padding: 0;
+      border-bottom: none;
+    }
+
+    .post-media {
+      position: relative;
+      background: #eee;
+      border-bottom: 2px solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .post-media img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 620px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .post-media .tape {
+      position: absolute;
+      top: -6px;
+      left: 20px;
+      width: 55px;
+      height: 20px;
+      background: repeating-linear-gradient(45deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9) 4px, rgba(255,255,255,0.6) 4px, rgba(255,255,255,0.6) 8px);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      transform: rotate(-4deg);
+      opacity: 0.9;
+      z-index: 2;
+    }
+
+    .post-caption {
+      padding: 10px 12px 4px;
+      font-size: 11.5px;
+      line-height: 1.4;
+      color: #222;
+    }
+
+    .post-caption b {
+      color: var(--red);
+      font-family: 'Impact', sans-serif;
+      letter-spacing: 0.3px;
+      font-weight: normal;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 4px;
+      padding: 8px 10px 10px;
+    }
+
+    .pact {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 20px;
+      padding: 7px 4px;
+      font-family: 'Impact', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: var(--navy);
+      box-shadow: 0 3px 0 #000;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.15s, color 0.15s;
+    }
+
+    .pact i { font-size: 12px; }
+
+    .pact:hover { background: var(--yellow); color: #000; }
+    .pact:hover i { color: var(--red); }
+    .pact:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
+
+    /* ====== ESTADOS DE INTERACCIÓN (pilas) ====== */
+    .pact.liked   { background: var(--red); color: #fff; }
+    .pact.liked i { color: #fff !important; }
+    .pact.saved   { background: var(--yellow); color: #000; }
+
+    /* selector de comentarios predeterminados */
+    .comment-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 10px 10px;
+    }
+    .comment-picker button {
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 14px;
+      padding: 5px 10px;
+      font-size: 10.5px;
+      box-shadow: 0 2px 0 #000;
+      transition: transform .1s, background .15s;
+    }
+    .comment-picker button:hover { background: var(--yellow); }
+    .comment-picker button:active { transform: translateY(2px); box-shadow: 0 0 0 #000; }
+
+    .post-comments { padding: 0 12px 10px; display: flex; flex-direction: column; gap: 4px; }
+    .pc-item { font-size: 10.5px; background: #f1f1f1; border: 1px solid #000; border-radius: 10px; padding: 5px 8px; }
+    .pc-item b { color: var(--navy); }
+
+    /* pila de likes (visual) */
+    .stack-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: #fff; border: 2px solid #000; border-radius: 12px;
+      padding: 6px 10px; font-size: 11px; font-family: 'Impact', sans-serif;
+      box-shadow: 0 2px 0 #000;
+    }
+    .stack-chip.tope { background: var(--green); color: #fff; }
+    .stack-list { display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+    .stack-panel-actions { padding: 0 10px 10px; }
+    .btn-block {
+      width: 100%; background: var(--red); color: #fff; border: 2px solid #000;
+      border-radius: 14px; padding: 8px; font-family: 'Impact', sans-serif;
+      font-size: 11px; letter-spacing: .5px; box-shadow: 0 3px 0 #000;
+    }
+    .btn-block:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
+
+    .fav-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 11px; }
+    .fav-item img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; }
+
+    /* modal de reporte */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 999; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border: 2px solid #000; border-radius: 16px;
+      box-shadow: 0 6px 0 #000; max-width: 520px; width: 100%;
+      max-height: 80vh; overflow-y: auto;
+    }
+    .modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
+      color: #fff; padding: 12px 16px; font-family: 'Impact', sans-serif;
+      letter-spacing: .5px; position: sticky; top: 0;
+    }
+    .modal-head button { background: none; border: none; color: #fff; font-size: 16px; }
+    .modal-section { padding: 12px 16px; }
+    .modal-section h4 { font-family: 'Impact', sans-serif; color: var(--navy); font-size: 12px; margin-bottom: 8px; }
+
+    .reporte-item {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+      padding: 8px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 6px; font-size: 10.5px;
+    }
+    .reporte-item.ultima { border-color: var(--green); background: #f0fff4; }
+    .reporte-tag {
+      font-family: 'Impact', sans-serif; font-size: 9px; color: #fff;
+      padding: 2px 8px; border-radius: 10px; background: var(--navy);
+    }
+    .tag-LIKE { background: var(--red); }
+    .tag-UNLIKE { background: #777; }
+    .tag-COMENTARIO { background: var(--orange-1); }
+    .tag-GUARDAR { background: var(--green); }
+    .tag-QUITAR_GUARDADO { background: #999; }
+    .reporte-hora { margin-left: auto; color: #888; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; }
+      .stack { position: static; }
+      .feature-card { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .search-pill { display: none; }
+      .navpills { justify-content: flex-start; overflow-x: auto; }
+      .composer { flex-wrap: wrap; }
+      .post-actions { flex-wrap: wrap; }
+      .pact { flex: 1 1 40%; }
+      .brand-name { font-size: 22px; }
+      .post-media img { max-height: 480px; }
+      .feature-comments-form { flex-wrap: wrap; }
+      .feature-comments-form button { flex: 1; justify-content: center; }
+    }
+    /* ====== TARJETAS VISUALES DE LA PILA DE LIKES / GUARDADOS ====== */
+  .stack-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 10px;
+    max-height: 340px;
+    overflow-y: auto;
   }
 
-  /* HEADER */
-  .topbar {
-    background: linear-gradient(to bottom, var(--orange-1), var(--orange-2));
-    border: 2px solid #000;
-    border-radius: 20px;
-    box-shadow: 0 4px 0 #000;
-    padding: 8px 14px;
+  .stack-list::-webkit-scrollbar { width: 6px; }
+  .stack-list::-webkit-scrollbar-track { background: #e5e5e5; border-radius: 10px; }
+  .stack-list::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 10px; }
+
+  /* Tarjeta individual */
+  .stack-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+    gap: 8px;
+    background: linear-gradient(to bottom, #ffffff, #f4f7ff);
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 3px 0 #000;
     position: relative;
-    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
   }
 
-  .topbar::before {
-    content: '';
+  .stack-card:hover {
+    transform: translateY(-2px) translateX(2px);
+    box-shadow: 0 5px 0 #000;
+  }
+
+  /* La tarjeta del TOPE (último like) se resalta */
+  .stack-card.tope {
+    background: linear-gradient(to bottom, var(--yellow), #ffcc00);
+    border-color: #000;
+  }
+
+  .stack-card.tope::after {
+    content: 'TOPE';
     position: absolute;
-    top: -50%;
-    left: -10%;
-    width: 60px;
-    height: 200%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-    transform: rotate(20deg);
-    pointer-events: none;
+    top: -8px;
+    right: -6px;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Impact', sans-serif;
+    font-size: 8px;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 0 2px 0 #000;
   }
 
-  .brand { display: flex; align-items: center; gap: 10px; }
-
-  .brand-mark {
+  /* Miniatura de la publicación */
+  .stack-card .stack-thumb {
     width: 46px;
     height: 46px;
-    border-radius: 12px;
-    background: linear-gradient(to bottom, var(--yellow), #ffaa00);
-    border: 2px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: #000;
-    box-shadow: 2px 3px 0 #000;
-    transform: rotate(-6deg);
-  }
-
-  .brand-name {
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 30px;
-    letter-spacing: 1px;
-    color: #ffffff;
-    text-shadow: 3px 3px 0 #cc3300, 4px 4px 0 #000;
-    line-height: 1;
-  }
-
-  .brand-tag {
-    font-size: 10px;
-    color: #fff;
-    font-style: italic;
-    text-shadow: 1px 1px 0 #000;
-    margin-top: 2px;
-  }
-
-  .search-pill {
-    flex: 1;
-    max-width: 360px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #ffffff;
-    border: 2px solid #000;
-    border-radius: 30px;
-    padding: 4px 4px 4px 14px;
-    box-shadow: 0 3px 0 #000, inset 2px 2px 0 rgba(0,0,0,0.08);
-  }
-
-  .search-pill input {
-    border: none;
-    outline: none;
-    font-size: 12px;
-    flex: 1;
-    background: transparent;
-    color: #000;
-  }
-
-  .search-pill button {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--red);
-    border: 2px solid #000;
-    color: #ffffff;
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 0 #000;
-    transition: transform 0.1s;
-  }
-
-  .search-pill button:active { transform: translateY(2px); box-shadow: 0 0 0 #000; }
-
-  .head-actions { display: flex; align-items: center; gap: 8px; }
-
-  .icon-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 2px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--red);
-    font-size: 15px;
-    position: relative;
-    box-shadow: 0 3px 0 #000;
-    transition: transform 0.1s;
-  }
-
-  .icon-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
-
-  .icon-btn .dot {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--yellow);
-    border: 2px solid #000;
-    font-size: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-    font-weight: bold;
-  }
-
-  .btn-login {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--yellow);
-    color: #000;
-    border: 2px solid #000;
-    border-radius: 25px;
-    padding: 10px 22px;
-    font-family: 'Impact', sans-serif;
-    font-size: 14px;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 0 #000;
-    transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
-  }
-
-  .btn-login i { color: var(--red); font-size: 15px; }
-  .btn-login:hover { background: #ffe74d; }
-  .btn-login:active { transform: translateY(4px); box-shadow: 0 0 0 #000; }
-
-  /* NAVBAR */
-  .navpills {
-    background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
-    border: 2px solid #000;
-    border-radius: 20px;
-    box-shadow: 0 4px 0 #000;
-    padding: 6px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .navpills a {
-    font-family: 'Impact', sans-serif;
-    color: #ffffff;
-    font-size: 12px;
-    letter-spacing: 1px;
-    padding: 7px 16px;
-    border-radius: 20px;
-    border: 2px solid transparent;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    text-shadow: 1px 1px 0 #000;
-    transition: background 0.15s, color 0.15s;
-  }
-
-  .navpills a.active {
-    background: var(--yellow);
-    color: #000;
-    border-color: #000;
-    box-shadow: 0 3px 0 #000;
-    text-shadow: none;
-  }
-
-  .navpills a:not(.active):hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  /* LAYOUT */
-  .layout {
-    display: grid;
-    grid-template-columns: 250px 1fr 270px;
-    gap: 8px;
-    align-items: start;
-  }
-
-  .stack {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: sticky;
-    top: 10px;
-  }
-
-  /* PANEL */
-  .panel {
-    background: #ffffff;
-    border: 2px solid #000;
-    border-radius: 12px;
-    box-shadow: 0 4px 0 #000;
-    overflow: hidden;
-  }
-
-  .panel-head {
-    font-family: 'Impact', sans-serif;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    color: #ffffff;
-    padding: 6px 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border-bottom: 2px solid #000;
-    text-shadow: 1px 1px 0 #000;
-  }
-
-  .panel-head i { color: var(--yellow); }
-
-  .ph-pink   { background: linear-gradient(to bottom, var(--orange-1), var(--orange-2)); }
-  .ph-blue   { background: linear-gradient(to bottom, var(--navy), var(--navy-dark)); }
-  .ph-purple { background: linear-gradient(to bottom, var(--pink-1), var(--pink-2)); }
-  .ph-cyan   { background: linear-gradient(to bottom, var(--orange-1), var(--orange-2)); }
-  .ph-green  { background: linear-gradient(to bottom, var(--green), #128a3e); }
-
-  /* CONTACTOS */
-  .contacts-wrap {
-    background: linear-gradient(to bottom, var(--sky-1), var(--sky-2));
-    padding: 8px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .contacts-wrap::-webkit-scrollbar { width: 6px; }
-  .contacts-wrap::-webkit-scrollbar-track { background: #b8d0f0; border-radius: 10px; }
-  .contacts-wrap::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 10px; }
-
-  .contact-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #ffffff;
-    border: 2px solid #000;
     border-radius: 8px;
-    padding: 5px 6px;
-    box-shadow: 0 3px 0 #000;
-    transition: transform 0.15s;
-  }
-
-  .contact-row:hover { transform: translateX(3px); }
-
-  .contact-row img {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
-    object-fit: cover;
     border: 2px solid #000;
+    object-fit: cover;
     flex-shrink: 0;
-  }
-
-  .contact-row .cname {
-    font-family: 'Impact', sans-serif;
-    font-size: 11px;
-    color: var(--navy);
-    letter-spacing: 0.3px;
-  }
-
-  .contact-row .cstat {
-    font-size: 8px;
-    color: #666;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    margin-top: 1px;
-  }
-
-  .contact-row .cstat i { color: var(--green); font-size: 6px; }
-
-  .contact-row button {
-    margin-left: auto;
-    background: var(--yellow);
-    border: 2px solid #000;
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-family: 'Impact', sans-serif;
-    font-size: 11px;
-    color: #000;
+    background: #ccc;
     box-shadow: 0 2px 0 #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.1s, background 0.15s;
   }
 
-  .contact-row button:hover { background: #ffe74d; }
-  .contact-row button:active { transform: translateY(2px); box-shadow: 0 0 0 #000; }
-
-  /* EMPTY BOX */
-  .empty-box {
-    background: linear-gradient(to bottom, #fff7cc, var(--yellow-2));
-    padding: 24px 14px;
-    text-align: center;
-  }
-
-  .empty-box i {
-    font-size: 28px;
-    color: var(--orange-2);
-    margin-bottom: 8px;
-    display: block;
-    text-shadow: 1px 1px 0 #fff;
-  }
-
-  .empty-box p {
-    font-family: 'Impact', sans-serif;
-    font-size: 12px;
-    color: #7a5200;
-    letter-spacing: 0.5px;
-    line-height: 1.4;
-  }
-
-  .empty-box span {
-    font-size: 9px;
-    color: #a37a2d;
-    display: block;
-    margin-top: 4px;
-    font-style: italic;
-  }
-
-  .notif-empty { background: linear-gradient(to bottom, #ffe0e0, #ffb8b8); }
-  .notif-empty i { color: var(--red); }
-  .notif-empty p { color: var(--red); }
-  .notif-empty span { color: #a03030; }
-
-  .saved-empty { background: linear-gradient(to bottom, #fff7cc, var(--yellow-2)); }
-
-  /* MI MURO */
-  .wall-card {
-    background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
-    color: #ffffff;
+  /* Avatar pequeño superpuesto */
+  .stack-card .stack-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
     border: 2px solid #000;
-    border-radius: 12px;
-    box-shadow: 0 4px 0 #000;
-    overflow: hidden;
+    object-fit: cover;
+    position: absolute;
+    left: 40px;
+    bottom: 4px;
+    background: #fff;
+    box-shadow: 0 1px 0 #000;
   }
 
-  .wall-hero {
+  /* Info de texto */
+  .stack-card .stack-info {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 16px 12px 12px;
+    gap: 1px;
   }
 
-  .avatar-ring {
-    width: 82px;
-    height: 82px;
-    border-radius: 50%;
-    background: conic-gradient(var(--yellow), var(--orange-1), var(--pink-1), var(--yellow));
-    padding: 4px;
-    margin-bottom: 8px;
-    box-shadow: 0 3px 0 #000;
-  }
-
-  .avatar-ring img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #000;
-  }
-
-  .wall-hero .uname {
+  .stack-card .stack-user {
     font-family: 'Impact', sans-serif;
-    font-size: 18px;
-    color: var(--yellow);
-    text-shadow: 2px 2px 0 #000;
-    letter-spacing: 1.5px;
-  }
-
-  .wall-hero .uhandle {
-    font-size: 10px;
-    color: #c9d4ff;
-    margin-top: 2px;
-    font-style: italic;
-  }
-
-  .mood-row {
-    background: #ffffff;
-    color: #000;
-    margin: 0 12px 12px;
-    border-radius: 6px;
-    border: 2px solid #000;
-    padding: 6px 10px;
-    font-size: 10px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 3px 0 #000;
-  }
-
-  .mood-row .flame {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: var(--yellow);
-    border: 2px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ff6600;
-    font-size: 13px;
-  }
-
-  .stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px;
-    padding: 0 12px 14px;
-  }
-
-  .stat-cell {
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    text-align: center;
-    padding: 6px 2px;
-  }
-
-  .stat-cell b {
-    display: block;
-    font-family: 'Impact', sans-serif;
-    font-size: 15px;
-    color: var(--yellow);
-    letter-spacing: 0.5px;
-    text-shadow: 1px 1px 0 #000;
-  }
-
-  .stat-cell span {
-    font-size: 8px;
-    color: #cfd8ff;
-    letter-spacing: 0.5px;
-  }
-
-  /* CENTRO */
-  .center-col { display: flex; flex-direction: column; gap: 10px; }
-
-  .feature-card {
-    background: linear-gradient(135deg, var(--pink-1), var(--pink-2));
-    border: 2px solid #000;
-    border-radius: 14px;
-    box-shadow: 0 5px 0 #000;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 12px;
-    align-items: center;
-    position: relative;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    color: var(--navy);
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .feature-card::after {
-    content: '✦';
-    position: absolute;
-    top: 8px;
-    right: 14px;
+  .stack-card.tope .stack-user { color: #000; }
+
+  .stack-card .stack-caption {
+    font-size: 9px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stack-card .stack-icon {
+    font-size: 14px;
+    color: var(--red);
+    flex-shrink: 0;
+    margin-right: 2px;
+  }
+
+  .stack-card.tope .stack-icon { color: #000; }
+
+  /* Estado vacío bonito */
+  .stack-empty {
+    text-align: center;
+    padding: 20px 12px;
+    background: linear-gradient(to bottom, #ffe0e0, #ffb8b8);
+    border-radius: 8px;
+    border: 2px dashed #000;
+  }
+
+  .menu-comentarios {
+      width: 250px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 8px;
+      margin-top: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .titulo-comentarios {
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+      padding: 8px 10px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 5px;
+  }
+
+  .opcion-comentario {
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+  }
+
+  .opcion-comentario:hover {
+      background: #f1f1f1;
+      transform: translateX(3px);
+  }
+
+  .comentario-publicado {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      border-radius: 10px;
+      margin-top: 8px;
+      font-size: 14px;
+  }
+  .stack-empty i {
     font-size: 26px;
-    color: rgba(255, 255, 255, 0.4);
-    pointer-events: none;
-  }
-
-  .feature-media {
-    border-radius: 8px;
-    border: 2px solid #000;
-    overflow: hidden;
-    box-shadow: 0 3px 0 #000;
-    aspect-ratio: 16 / 10;
-    background: #000;
-    position: relative;
-  }
-
-  .feature-media video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    color: var(--red);
     display: block;
-    background: #000;
-  }
-
-  .feature-copy { color: #ffffff; }
-
-  .feature-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--yellow);
-    color: #000;
-    font-family: 'Impact', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 2px solid #000;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 0 #000;
-  }
-
-  .feature-eyebrow i { color: var(--red); }
-
-  .feature-copy h2 {
-    font-family: 'Impact', sans-serif;
-    font-size: 20px;
-    line-height: 1.15;
-    letter-spacing: 0.5px;
-    text-shadow: 2px 2px 0 #000;
     margin-bottom: 6px;
   }
-
-  .feature-copy p {
-    font-size: 11px;
-    line-height: 1.5;
-    color: #ffe6f5;
-    margin-bottom: 10px;
-  }
-
-  .feature-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--yellow);
-    color: #000;
-    border: 2px solid #000;
-    border-radius: 20px;
-    padding: 7px 16px;
+  .stack-empty p {
     font-family: 'Impact', sans-serif;
     font-size: 11px;
-    letter-spacing: 1px;
-    box-shadow: 0 3px 0 #000;
-    transition: transform 0.1s, background 0.15s;
+    color: var(--red);
+    letter-spacing: 0.5px;
+  }
+  .stack-empty span {
+    font-size: 9px;
+    color: #a03030;
+    font-style: italic;
   }
 
-  .feature-btn i { color: var(--red); }
-  .feature-btn:hover { background: #ffe74d; }
-  .feature-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
-
-  /* ---------- SECCIÓN COMENTARIOS EN FEATURE CARD ---------- */
-  .feature-comments {
-    grid-column: 1 / -1;
-    margin-top: 4px;
-    background: rgba(0, 0, 0, 0.25);
-    border: 2px solid #000;
-    border-radius: 10px;
-    box-shadow: 0 3px 0 #000;
-    overflow: hidden;
-  }
-
-  .feature-comments-head {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
-    color: #fff;
-    font-family: 'Impact', sans-serif;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    padding: 5px 10px;
-    text-shadow: 1px 1px 0 #000;
-    border-bottom: 2px solid #000;
-  }
-
-  .feature-comments-head i { color: var(--yellow); }
-
-  .feature-comments-head .count {
-    margin-left: auto;
-    background: var(--yellow);
-    color: #000;
-    border: 2px solid #000;
-    border-radius: 20px;
-    padding: 1px 8px;
-    font-size: 10px;
-    text-shadow: none;
-  }
-
-  .feature-comments-list {
-    max-height: 150px;
-    overflow-y: auto;
-    padding: 8px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .feature-comments-list::-webkit-scrollbar { width: 6px; }
-  .feature-comments-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
-  .feature-comments-list::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 10px; }
-
-  .fc-item {
-    display: flex;
-    gap: 7px;
-    align-items: flex-start;
-    background: #ffffff;
-    border: 2px solid #000;
-    border-radius: 8px;
-    padding: 5px 7px;
-    box-shadow: 0 2px 0 #000;
-  }
-
-  .fc-item img {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid #000;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-
-  .fc-item .fc-body { flex: 1; min-width: 0; }
-
-  .fc-item .fc-name {
-    font-family: 'Impact', sans-serif;
-    font-size: 10.5px;
-    color: var(--navy);
-    letter-spacing: 0.4px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .fc-item .fc-name .fc-time {
-    font-family: 'Trebuchet MS', sans-serif;
-    font-size: 8px;
-    color: #888;
-    font-weight: normal;
-    letter-spacing: 0;
-  }
-
-  .fc-item .fc-text {
-    font-size: 10.5px;
-    color: #222;
-    line-height: 1.35;
-    margin-top: 1px;
-    word-wrap: break-word;
-  }
-
-  .feature-comments-form {
-    display: flex;
-    gap: 6px;
-    padding: 7px 8px;
-    background: linear-gradient(to bottom, var(--pink-1), var(--pink-2));
-    border-top: 2px solid #000;
-  }
-
-  .feature-comments-form input {
-    flex: 1;
-    border: 2px solid #000;
-    border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 11px;
-    outline: none;
-    background: #fff;
-    box-shadow: inset 2px 2px 0 rgba(0,0,0,0.08);
-  }
-
-  .feature-comments-form input:focus {
-    box-shadow: 0 0 0 3px var(--yellow), inset 2px 2px 0 rgba(0,0,0,0.08);
-  }
-
-  .feature-comments-form button {
-    background: var(--yellow);
-    border: 2px solid #000;
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-family: 'Impact', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1px;
-    color: #000;
-    box-shadow: 0 3px 0 #000;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    transition: transform 0.1s, background 0.15s;
-  }
-
-  .feature-comments-form button i { color: var(--red); }
-  .feature-comments-form button:hover { background: #ffe74d; }
-  .feature-comments-form button:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
-
-  /* COMPOSER */
-  .composer {
-    background: #ffffff;
-    border: 2px solid #000;
-    border-radius: 14px;
-    box-shadow: 0 5px 0 #000;
-    padding: 10px 12px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .composer .cav {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid #000;
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow: 0 3px 0 #000;
-  }
-
-  .composer .cav img { width: 100%; height: 100%; object-fit: cover; }
-
-  .composer input {
-    flex: 1;
-    border: 2px solid #000;
-    border-radius: 22px;
-    padding: 10px 16px;
-    font-size: 12px;
-    outline: none;
-    background: #ffffff;
-    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.08);
-  }
-
-  .composer input:focus { box-shadow: 0 0 0 3px var(--yellow), inset 2px 2px 0 rgba(0, 0, 0, 0.08); }
-
-  .composer button {
-    background: var(--yellow);
-    border: 2px solid #000;
-    border-radius: 22px;
-    padding: 10px 16px;
-    font-family: 'Impact', sans-serif;
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: #000;
-    box-shadow: 0 3px 0 #000;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: transform 0.1s, background 0.15s;
-  }
-
-  .composer button i { color: var(--red); }
-  .composer button:hover { background: #ffe74d; }
-  .composer button:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
-
-  .feed-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #ffffff;
-    font-family: 'Impact', sans-serif;
-    font-size: 15px;
-    letter-spacing: 1.5px;
-    padding: 2px 4px;
-    text-shadow: 2px 2px 0 #000;
-  }
-
-  .feed-title .sort {
-    background: var(--navy);
-    border: 2px solid #000;
-    border-radius: 20px;
-    padding: 5px 12px;
-    font-size: 10px;
-    color: #ffffff;
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    box-shadow: 0 3px 0 #000;
-    letter-spacing: 1px;
-  }
-
-  .feed-title .sort i { color: var(--yellow); }
-
-  /* POST */
-  .post {
-    background: #ffffff;
-    border: 2px solid #000;
-    border-radius: 14px;
-    box-shadow: 0 5px 0 #000;
-    overflow: hidden;
-    transition: transform 0.15s;
-  }
-
-  .post:hover { transform: translateY(-3px); }
-
-  .post-top {
+  /* ====== TARJETAS DE GUARDADOS (mismo estilo) ====== */
+  .fav-card {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 10px;
-    background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
-  }
-
-  .post-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 2px solid var(--yellow);
-    overflow: hidden;
-    flex-shrink: 0;
-    background: #cbd5e1;
-  }
-
-  .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-  .post-uname {
-    font-family: 'Impact', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.4px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    text-shadow: 1px 1px 0 #000;
-  }
-
-  .post-uname i { color: var(--yellow); font-size: 10px; }
-
-  .post-time { font-size: 8.5px; color: #b9c6ff; margin-top: 1px; }
-
-  .post-more { margin-left: auto; color: #cfd8ff; font-size: 13px; }
-
-  .post-label {
-    background: var(--yellow);
-    color: #000;
-    font-family: 'Impact', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    padding: 3px 12px;
-    border-bottom: 2px solid #000;
-  }
-
-  .post-label:empty {
-    padding: 0;
-    border-bottom: none;
-  }
-
-  .post-media {
-    position: relative;
-    background: #eee;
-    border-bottom: 2px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  .post-media img {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    max-height: 620px;
-    object-fit: contain;
-    display: block;
-  }
-
-  .post-media .tape {
-    position: absolute;
-    top: -6px;
-    left: 20px;
-    width: 55px;
-    height: 20px;
-    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9) 4px, rgba(255,255,255,0.6) 4px, rgba(255,255,255,0.6) 8px);
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    transform: rotate(-4deg);
-    opacity: 0.9;
-    z-index: 2;
-  }
-
-  .post-caption {
-    padding: 10px 12px 4px;
-    font-size: 11.5px;
-    line-height: 1.4;
-    color: #222;
-  }
-
-  .post-caption b {
-    color: var(--red);
-    font-family: 'Impact', sans-serif;
-    letter-spacing: 0.3px;
-    font-weight: normal;
-  }
-
-  .post-actions {
-    display: flex;
-    gap: 4px;
-    padding: 8px 10px 10px;
-  }
-
-  .pact {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    background: #ffffff;
+    background: linear-gradient(to bottom, #fffbe6, #ffe680);
     border: 2px solid #000;
-    border-radius: 20px;
-    padding: 7px 4px;
-    font-family: 'Impact', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.5px;
-    color: var(--navy);
-    box-shadow: 0 3px 0 #000;
-    cursor: pointer;
-    transition: transform 0.1s, background 0.15s, color 0.15s;
-  }
-
-  .pact i { font-size: 12px; }
-
-  .pact:hover { background: var(--yellow); color: #000; }
-  .pact:hover i { color: var(--red); }
-  .pact:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
-
-  /* ====== ESTADOS DE INTERACCIÓN (pilas) ====== */
-  .pact.liked   { background: var(--red); color: #fff; }
-  .pact.liked i { color: #fff !important; }
-  .pact.saved   { background: var(--yellow); color: #000; }
-
-  /* selector de comentarios predeterminados */
-  .comment-picker {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 0 10px 10px;
-  }
-  .comment-picker button {
-    background: #fff;
-    border: 2px solid #000;
-    border-radius: 14px;
-    padding: 5px 10px;
-    font-size: 10.5px;
-    box-shadow: 0 2px 0 #000;
-    transition: transform .1s, background .15s;
-  }
-  .comment-picker button:hover { background: var(--yellow); }
-  .comment-picker button:active { transform: translateY(2px); box-shadow: 0 0 0 #000; }
-
-  .post-comments { padding: 0 12px 10px; display: flex; flex-direction: column; gap: 4px; }
-  .pc-item { font-size: 10.5px; background: #f1f1f1; border: 1px solid #000; border-radius: 10px; padding: 5px 8px; }
-  .pc-item b { color: var(--navy); }
-
-  /* pila de likes (visual) */
-  .stack-chip {
-    display: flex; align-items: center; gap: 6px;
-    background: #fff; border: 2px solid #000; border-radius: 12px;
-    padding: 6px 10px; font-size: 11px; font-family: 'Impact', sans-serif;
-    box-shadow: 0 2px 0 #000;
-  }
-  .stack-chip.tope { background: var(--green); color: #fff; }
-  .stack-list { display: flex; flex-direction: column; gap: 5px; padding: 10px; }
-  .stack-panel-actions { padding: 0 10px 10px; }
-  .btn-block {
-    width: 100%; background: var(--red); color: #fff; border: 2px solid #000;
-    border-radius: 14px; padding: 8px; font-family: 'Impact', sans-serif;
-    font-size: 11px; letter-spacing: .5px; box-shadow: 0 3px 0 #000;
-  }
-  .btn-block:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
-
-  .fav-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 11px; }
-  .fav-item img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; }
-
-  /* modal de reporte */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-    z-index: 999; align-items: center; justify-content: center; padding: 20px;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    background: #fff; border: 2px solid #000; border-radius: 16px;
-    box-shadow: 0 6px 0 #000; max-width: 520px; width: 100%;
-    max-height: 80vh; overflow-y: auto;
-  }
-  .modal-head {
-    display: flex; align-items: center; justify-content: space-between;
-    background: linear-gradient(to bottom, var(--navy), var(--navy-dark));
-    color: #fff; padding: 12px 16px; font-family: 'Impact', sans-serif;
-    letter-spacing: .5px; position: sticky; top: 0;
-  }
-  .modal-head button { background: none; border: none; color: #fff; font-size: 16px; }
-  .modal-section { padding: 12px 16px; }
-  .modal-section h4 { font-family: 'Impact', sans-serif; color: var(--navy); font-size: 12px; margin-bottom: 8px; }
-
-  .reporte-item {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
-    padding: 8px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 6px; font-size: 10.5px;
-  }
-  .reporte-item.ultima { border-color: var(--green); background: #f0fff4; }
-  .reporte-tag {
-    font-family: 'Impact', sans-serif; font-size: 9px; color: #fff;
-    padding: 2px 8px; border-radius: 10px; background: var(--navy);
-  }
-  .tag-LIKE { background: var(--red); }
-  .tag-UNLIKE { background: #777; }
-  .tag-COMENTARIO { background: var(--orange-1); }
-  .tag-GUARDAR { background: var(--green); }
-  .tag-QUITAR_GUARDADO { background: #999; }
-  .reporte-hora { margin-left: auto; color: #888; }
-
-  /* RESPONSIVE */
-  @media (max-width: 1100px) {
-    .layout { grid-template-columns: 1fr; }
-    .stack { position: static; }
-    .feature-card { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 640px) {
-    .search-pill { display: none; }
-    .navpills { justify-content: flex-start; overflow-x: auto; }
-    .composer { flex-wrap: wrap; }
-    .post-actions { flex-wrap: wrap; }
-    .pact { flex: 1 1 40%; }
-    .brand-name { font-size: 22px; }
-    .post-media img { max-height: 480px; }
-    .feature-comments-form { flex-wrap: wrap; }
-    .feature-comments-form button { flex: 1; justify-content: center; }
-  }
-  /* ====== TARJETAS VISUALES DE LA PILA DE LIKES / GUARDADOS ====== */
-.stack-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 10px;
-  max-height: 340px;
-  overflow-y: auto;
-}
-
-.stack-list::-webkit-scrollbar { width: 6px; }
-.stack-list::-webkit-scrollbar-track { background: #e5e5e5; border-radius: 10px; }
-.stack-list::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 10px; }
-
-/* Tarjeta individual */
-.stack-card {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(to bottom, #ffffff, #f4f7ff);
-  border: 2px solid #000;
-  border-radius: 10px;
-  padding: 6px;
-  box-shadow: 0 3px 0 #000;
-  position: relative;
-  transition: transform 0.15s, box-shadow 0.15s;
-  cursor: pointer;
-}
-
-.stack-card:hover {
-  transform: translateY(-2px) translateX(2px);
-  box-shadow: 0 5px 0 #000;
-}
-
-/* La tarjeta del TOPE (último like) se resalta */
-.stack-card.tope {
-  background: linear-gradient(to bottom, var(--yellow), #ffcc00);
-  border-color: #000;
-}
-
-.stack-card.tope::after {
-  content: 'TOPE';
-  position: absolute;
-  top: -8px;
-  right: -6px;
-  background: var(--red);
-  color: #fff;
-  font-family: 'Impact', sans-serif;
-  font-size: 8px;
-  letter-spacing: 1px;
-  padding: 2px 6px;
-  border: 2px solid #000;
-  border-radius: 10px;
-  box-shadow: 0 2px 0 #000;
-}
-
-/* Miniatura de la publicación */
-.stack-card .stack-thumb {
-  width: 46px;
-  height: 46px;
-  border-radius: 8px;
-  border: 2px solid #000;
-  object-fit: cover;
-  flex-shrink: 0;
-  background: #ccc;
-  box-shadow: 0 2px 0 #000;
-}
-
-/* Avatar pequeño superpuesto */
-.stack-card .stack-avatar {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid #000;
-  object-fit: cover;
-  position: absolute;
-  left: 40px;
-  bottom: 4px;
-  background: #fff;
-  box-shadow: 0 1px 0 #000;
-}
-
-/* Info de texto */
-.stack-card .stack-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.stack-card .stack-user {
-  font-family: 'Impact', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.4px;
-  color: var(--navy);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.stack-card.tope .stack-user { color: #000; }
-
-.stack-card .stack-caption {
-  font-size: 9px;
-  color: #555;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.stack-card .stack-icon {
-  font-size: 14px;
-  color: var(--red);
-  flex-shrink: 0;
-  margin-right: 2px;
-}
-
-.stack-card.tope .stack-icon { color: #000; }
-
-/* Estado vacío bonito */
-.stack-empty {
-  text-align: center;
-  padding: 20px 12px;
-  background: linear-gradient(to bottom, #ffe0e0, #ffb8b8);
-  border-radius: 8px;
-  border: 2px dashed #000;
-}
-
-.menu-comentarios {
-    width: 250px;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 8px;
-    margin-top: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.titulo-comentarios {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    padding: 8px 10px;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 5px;
-}
-
-.opcion-comentario {
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-}
-
-.opcion-comentario:hover {
-    background: #f1f1f1;
-    transform: translateX(3px);
-}
-
-.comentario-publicado {
-    background: #f5f5f5;
-    padding: 8px 12px;
     border-radius: 10px;
-    margin-top: 8px;
-    font-size: 14px;
-}
-.stack-empty i {
-  font-size: 26px;
-  color: var(--red);
-  display: block;
-  margin-bottom: 6px;
-}
-.stack-empty p {
-  font-family: 'Impact', sans-serif;
-  font-size: 11px;
-  color: var(--red);
-  letter-spacing: 0.5px;
-}
-.stack-empty span {
-  font-size: 9px;
-  color: #a03030;
-  font-style: italic;
-}
+    padding: 6px;
+    margin: 6px 8px;
+    box-shadow: 0 3px 0 #000;
+    position: relative;
+    transition: transform 0.15s;
+    cursor: pointer;
+  }
+  .fav-card:hover { transform: translateY(-2px) translateX(2px); }
+  .fav-card .stack-thumb {
+    width: 46px; height: 46px; border-radius: 8px;
+    border: 2px solid #000; object-fit: cover; flex-shrink: 0;
+    box-shadow: 0 2px 0 #000;
+  }
+  .fav-card .stack-info { flex: 1; min-width: 0; }
+  .fav-card .stack-user {
+    font-family: 'Impact', sans-serif; font-size: 11px;
+    color: var(--navy); letter-spacing: 0.4px;
+  }
+  .fav-card .stack-caption {
+    font-size: 9px; color: #555;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .fav-card .stack-icon { color: var(--green); font-size: 14px; }
+  </style>
+</head>
 
-/* ====== TARJETAS DE GUARDADOS (mismo estilo) ====== */
-.fav-card {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(to bottom, #fffbe6, #ffe680);
-  border: 2px solid #000;
-  border-radius: 10px;
-  padding: 6px;
-  margin: 6px 8px;
-  box-shadow: 0 3px 0 #000;
-  position: relative;
-  transition: transform 0.15s;
-  cursor: pointer;
-}
-.fav-card:hover { transform: translateY(-2px) translateX(2px); }
-.fav-card .stack-thumb {
-  width: 46px; height: 46px; border-radius: 8px;
-  border: 2px solid #000; object-fit: cover; flex-shrink: 0;
-  box-shadow: 0 2px 0 #000;
-}
-.fav-card .stack-info { flex: 1; min-width: 0; }
-.fav-card .stack-user {
-  font-family: 'Impact', sans-serif; font-size: 11px;
-  color: var(--navy); letter-spacing: 0.4px;
-}
-.fav-card .stack-caption {
-  font-size: 9px; color: #555;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.fav-card .stack-icon { color: var(--green); font-size: 14px; }
-</style>
 <body onload="brython()">
 <div class="wrap">
 
@@ -1448,59 +1449,28 @@
         <div class="sort"><i class="fa-solid fa-arrow-down-wide-short"></i> Recientes</div>
       </div>
 
-     
-<!-- PUBLICACIÓN 1 -->
-<article class="post" data-post-id="1">
-
-    <div class="post-top">
-        <div class="post-avatar">
-            <img src="<?= base_url('IMG/p1.png') ?>">
+      <!-- PUBLICACIÓN 1 -->
+      <article class="post" data-post-id="1">
+        <div class="post-top">
+          <div class="post-avatar"><img src="<?= base_url('IMG/p1.png') ?>"></div>
+          <div><div class="post-uname">Selena Gomez <i class="fa-solid fa-circle-check"></i></div><div class="post-time">hace 5 min</div></div>
+          <i class="fa-solid fa-ellipsis post-more"></i>
         </div>
-
-        <div>
-            <div class="post-uname">
-                Selena Gomez <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div class="post-time">hace 5 min</div>
-        </div>
-
-        <i class="fa-solid fa-ellipsis post-more"></i>
-    </div>
-
-    <div class="post-label"></div>
-
-    <div class="post-media">
-        <div class="tape"></div>
-        <img src="<?= base_url('IMG/pot1.png') ?>">
-    </div>
-
-    <div class="post-caption">
-        <b>Selena:</b> ¡Me encantan mis nuevos accesorios!
-    </div>
-
-    <div class="post-actions">
-
-        <?php $tieneLike = in_array(1, $likes ?? []); ?>
-
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/1') : base_url('like_controller/agregar/1') ?>" 
-           class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-
+        <div class="post-label"></div>
+        <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot1.png') ?>"></div>
+        <div class="post-caption"><b>Selena:</b> ¡Me encantan mis nuevos accesorios!</div>
+        <div class="post-actions">
+          <?php $tieneLike = in_array(1, $likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/1') : base_url('index.php/LikeController/agregar/1') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
             <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-
-        </a>
-
-        <div class="pact act-comment">
-            <i class="fa-regular fa-comment"></i> COMENTAR
+          </a>
+          <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
+          <?php $tieneFav = in_array(1, $favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/1') : base_url('index.php/FavoritoController/agregar/1') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
-
-        <div class="pact act-save">
-            <i class="fa-regular fa-bookmark"></i> GUARDAR
-        </div>
-
-    </div>
-</article>
-
-
+      </article>
 
       <!-- PUBLICACIÓN 2 -->
       <article class="post" data-post-id="2">
@@ -1513,14 +1483,15 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot2.png') ?>"></div>
         <div class="post-caption"><b>Britani Spears:</b> Usando insta en mi computadora nueva</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(2, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/2') : base_url('like_controller/agregar/2') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(2,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/2') : base_url('index.php/LikeController/agregar/2') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(2,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/2') : base_url('index.php/FavoritoController/agregar/2') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1535,14 +1506,15 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot3.png') ?>"></div>
         <div class="post-caption"><b>Adam Sandler:</b> Con el elenco de Rapidos y Furiosos</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(3, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/3') : base_url('like_controller/agregar/3') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(3,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/3') : base_url('index.php/LikeController/agregar/3') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(3,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/3') : base_url('index.php/FavoritoController/agregar/3') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1557,14 +1529,15 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot4.png') ?>"></div>
         <div class="post-caption"><b>The Rock:</b> Nuevo proyecto en el que estuve trabajando.</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(4, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/4') : base_url('like_controller/agregar/4') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(4,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/4') : base_url('index.php/LikeController/agregar/4') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(4,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/4') : base_url('index.php/FavoritoController/agregar/4') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1579,14 +1552,15 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot5.png') ?>"></div>
         <div class="post-caption"><b>MAYBELLINE:</b> ¡Miren qué lindo quedó todo hoy!</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(5, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/5') : base_url('like_controller/agregar/5') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(5,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/5') : base_url('index.php/LikeController/agregar/5') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(5,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/5') : base_url('index.php/FavoritoController/agregar/5') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1601,14 +1575,15 @@
         <div class="post-media"><img src="<?= base_url('IMG/pot6.png') ?>"></div>
         <div class="post-caption"><b>Pepsi:</b> Sin palabras.</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(6, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/6') : base_url('like_controller/agregar/6') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(6,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/6') : base_url('index.php/LikeController/agregar/6') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(6,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/6') : base_url('index.php/FavoritoController/agregar/6') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1623,14 +1598,15 @@
         <div class="post-media"><div class="tape"></div><img src="<?= base_url('IMG/pot7.png') ?>"></div>
         <div class="post-caption"><b>Regina:</b> Sesión de fotos en el estudio con las Mean Girls.</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(7, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/7') : base_url('like_controller/agregar/7') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(7,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/7') : base_url('index.php/LikeController/agregar/7') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(7,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/7') : base_url('index.php/FavoritoController/agregar/7') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1645,14 +1621,15 @@
         <div class="post-media"><img src="https://picsum.photos/seed/post8/700/560"></div>
         <div class="post-caption"><b>Sikowitz:</b> ¡La creatividad no tiene límites!</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(8, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/8') : base_url('like_controller/agregar/8') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(8,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/8') : base_url('index.php/LikeController/agregar/8') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(8,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/8') : base_url('index.php/FavoritoController/agregar/8') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1667,14 +1644,15 @@
         <div class="post-media"><div class="tape"></div><img src="https://picsum.photos/seed/post9/700/560"></div>
         <div class="post-caption"><b>Tori Vega:</b> Recuerdos de la gira</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(9, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/9') : base_url('like_controller/agregar/9') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(9,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/9') : base_url('index.php/LikeController/agregar/9') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(9,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/9') : base_url('index.php/FavoritoController/agregar/9') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1689,14 +1667,15 @@
         <div class="post-media"><img src="https://picsum.photos/seed/post10/700/560"></div>
         <div class="post-caption"><b>Cat Valentine:</b> ¡Una tarde perfecta!</div>
         <div class="post-actions">
-
-          <?php $tieneLike = in_array(10, $likes ?? []); ?>
-        <a href="<?= $tieneLike ? base_url('like_controller/quitar/10') : base_url('like_controller/agregar/10') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
-          <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
-        </a>
-
+          <?php $tieneLike = in_array(10,$likes ?? []); ?>
+          <a href="<?= $tieneLike ? base_url('index.php/LikeController/quitar/10') : base_url('index.php/LikeController/agregar/10') ?>" class="pact act-like<?= $tieneLike ? ' liked' : '' ?>">
+            <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
+          </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-          <div class="pact act-save"><i class="fa-regular fa-bookmark"></i> GUARDAR</div>
+          <?php $tieneFav = in_array(10,$favoritos ?? []); ?>
+          <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/10') : base_url('index.php/FavoritoController/agregar/10') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
+            <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
+          </a>
         </div>
       </article>
 
@@ -1725,74 +1704,78 @@
       <div class="panel">
         <div class="panel-head ph-green"><i class="fa-solid fa-layer-group"></i> PILA DE LIKES (LIFO)</div>
        <div class="stack-list" id="likesStackList">
-
-  <?php if (empty($likes)): ?>
-
-    <div class="stack-empty">
-      <i class="fa-solid fa-heart-crack"></i>
-      <p>Aún no das like a nada</p>
-    </div>
-
-  <?php else: ?>
-
-    <?php
-      // array_reverse para que el último like quede ARRIBA (tope de la pila)
-      $pilaInvertida = array_reverse($likes);
-    ?>
-
-    <?php foreach ($pilaInvertida as $i => $postId): ?>
-      <?php
-        $pub = $publicaciones[$postId] ?? null;
-        $esTope = ($i === 0);
-      ?>
-
-      <?php if ($pub): ?>
-
-        <div class="stack-card<?= $esTope ? ' tope' : '' ?>" data-post-id="<?= $postId ?>">
-          <img class="stack-thumb" src="<?= base_url($pub['imagen']) ?>" alt="">
-          <img class="stack-avatar" src="<?= base_url($pub['avatar']) ?>" alt="">
-          <div class="stack-info">
-            <div class="stack-user"><?= esc($pub['usuario']) ?></div>
-            <div class="stack-caption"><?= esc($pub['caption']) ?></div>
-          </div>
-          <i class="fa-solid fa-heart stack-icon"></i>
+          <?php if (empty($likes)): ?>
+            <div class="stack-empty">
+              <i class="fa-solid fa-heart-crack"></i>
+              <p>Aún no das like a nada</p>
+            </div>
+          <?php else: ?>
+            <?php
+              // array_reverse para que el último like quede ARRIBA (tope de la pila)
+              $pilaInvertida = array_reverse($likes);
+            ?>
+            <?php foreach ($pilaInvertida as $i =>$postId): ?>
+              <?php
+                $pub = $publicaciones[$postId] ?? null;
+                $esTope = ($i === 0);
+              ?>
+              <?php if ($pub): ?>
+                <div class="stack-card<?= $esTope ? ' tope' : '' ?>" data-post-id="<?= $postId ?>">
+                  <img class="stack-thumb" src="<?= base_url($pub['imagen']) ?>" alt="">
+                  <img class="stack-avatar" src="<?= base_url($pub['avatar']) ?>" alt="">
+                  <div class="stack-info">
+                    <div class="stack-user"><?= esc($pub['usuario']) ?></div>
+                    <div class="stack-caption"><?= esc($pub['caption']) ?></div>
+                  </div>
+                  <i class="fa-solid fa-heart stack-icon"></i>
+                </div>
+              <?php else: ?>
+                <div class="stack-card<?= $esTope ? ' tope' : '' ?>" data-post-id="<?= $postId ?>">
+                  <div class="stack-thumb" style="display:flex;align-items:center;justify-content:center;">
+                    <i class="fa-solid fa-image" style="color:#888;"></i>
+                  </div>
+                  <div class="stack-info">
+                    <div class="stack-user">Publicación #<?= $postId ?></div>
+                    <div class="stack-caption">(sin datos)</div>
+                  </div>
+                  <i class="fa-solid fa-heart stack-icon"></i>
+                </div>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </div>
-
-      <?php else: ?>
-
-        <div class="stack-card<?= $esTope ? ' tope' : '' ?>" data-post-id="<?= $postId ?>">
-          <div class="stack-thumb" style="display:flex;align-items:center;justify-content:center;">
-            <i class="fa-solid fa-image" style="color:#888;"></i>
-          </div>
-          <div class="stack-info">
-            <div class="stack-user">Publicación #<?= $postId ?></div>
-            <div class="stack-caption">(sin datos)</div>
-          </div>
-          <i class="fa-solid fa-heart stack-icon"></i>
-        </div>
-
-      <?php endif; ?>
-    <?php endforeach; ?>
-
-  <?php endif; ?>
-
-</div>
+      </div>
 
       <div class="panel">
         <div class="panel-head ph-cyan"><i class="fa-solid fa-bookmark"></i> PUBLICACIONES GUARDADAS</div>
         <div id="favoritosList">
-          <div class="empty-box saved-empty">
-            <i class="fa-solid fa-bookmark"></i>
-            <p>Aún no tienes guardadas</p>
-            <span>toca "guardar" en una publicación</span>
-          </div>
+          <?php if (empty($favoritos)): ?>
+            <div class="empty-box saved-empty">
+              <i class="fa-solid fa-bookmark"></i>
+              <p>Aún no tienes guardadas</p>
+              <span>toca "guardar" en una publicación</span>
+            </div>
+          <?php else: ?>
+            <?php foreach (array_reverse($favoritos) as$postId): ?>
+              <?php $pub = $publicaciones[$postId] ?? null; ?>
+              <?php if ($pub): ?>
+                <div class="fav-card">
+                  <img class="stack-thumb" src="<?= base_url($pub['imagen']) ?>" alt="">
+                  <div class="stack-info">
+                    <div class="stack-user"><?= esc($pub['usuario']) ?></div>
+                    <div class="stack-caption"><?= esc($pub['caption']) ?></div>
+                  </div>
+                  <i class="fa-solid fa-bookmark stack-icon"></i>
+                </div>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </div>
       </div>
 
     </aside>
 
   </div>
-
 </div>
 
 <!-- MODAL: REPORTE DE ACTIVIDAD (pila de historial) -->
@@ -1805,44 +1788,33 @@
     <div class="modal-section">
       <h4>Pila de Historial (tope = acción más reciente)</h4>
       <div id="reporteList">
-
-  <?php if (empty($historial)): ?>
-
-    <div class="empty-box">
-      <i class="fa-solid fa-clock-rotate-left"></i>
-      <p>Aún no hay actividad</p>
-      <span>tus acciones aparecerán aquí</span>
-    </div>
-
-  <?php else: ?>
-
-    <?php foreach ($historial as $i => $accion): ?>
-      <div class="reporte-item<?= $i === 0 ? ' ultima' : '' ?>">
-        <span class="reporte-tag tag-<?= $accion['tipo'] ?>">
-          <i class="fa-solid fa-heart"></i> <?= $accion['tipo'] ?>
-        </span>
-        <span><?= esc($accion['usuario']) ?></span>
-        <span class="reporte-hora"><?= $accion['hora'] ?></span>
+        <?php if (empty($historial)): ?>
+          <div class="empty-box">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <p>Aún no hay actividad</p>
+            <span>tus acciones aparecerán aquí</span>
+          </div>
+        <?php else: ?>
+          <?php foreach ($historial as $i =>$accion): ?>
+            <div class="reporte-item<?= $i === 0 ? ' ultima' : '' ?>">
+              <span class="reporte-tag tag-<?= $accion['tipo'] ?>">
+                <i class="fa-solid fa-heart"></i> <?= $accion['tipo'] ?>
+              </span>
+              <span><?= esc($accion['usuario']) ?></span>
+              <span class="reporte-hora"><?= $accion['hora'] ?></span>
+            </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
       </div>
-    <?php endforeach; ?>
-
-  <?php endif; ?>
-
-</div>
     </div>
   </div>
 </div>
 
 <script>
-  // BASE_URL global para que TODOS los módulos JS (likes.js, favoritos.js,
-  // comentarios.js, historial/reporte.js, etc.) sepan a qué controlador
-  // de CodeIgniter deben hacer fetch(), sin importar en qué carpeta
-  // termine viviendo el proyecto.
-  window.BASE_URL = "<?= base_url() ?>";
+  window.BASE_URL = "<?= base_url('index.php/') ?>";
 </script>
 <script src="<?= base_url('JS/pila.js') ?>"></script>
 <script src="<?= base_url('JS/historial.js') ?>"></script>
-<!-- likes.js ya NO se usa: el like/quitar like ahora se resuelve solo con PHP (Like_controller) -->
 <script src="<?= base_url('JS/comentarios.js') ?>"></script>
 <script src="<?= base_url('JS/favoritos.js') ?>"></script>
 <script src="<?= base_url('JS/reporte.js') ?>"></script>
@@ -1864,18 +1836,17 @@
     }
   });
 
-  // Botón de Reporte — AHORA aquí, fuera del submit
   document.getElementById('navReporte')?.addEventListener('click', function (e) {
     e.preventDefault();
     document.getElementById('modalReporte').classList.add('open');
   });
+  
   document.querySelectorAll('[data-cerrar-modal]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       document.getElementById('modalReporte').classList.remove('open');
     });
   });
 
-  // Comentarios en la card del video
   const form = document.getElementById('fcForm');
   const input = document.getElementById('fcInput');
   const list = document.getElementById('fcList');
@@ -1905,8 +1876,8 @@
   });
 });
 </script>
-<script>
 
+<script>
 const comentarios = [
     "¡Me encorazona! ❤️",
     "¡+1000 de aura! 🔥",
@@ -1916,12 +1887,8 @@ const comentarios = [
 ];
 
 document.querySelectorAll(".act-comment").forEach(boton => {
-
     boton.onclick = function() {
-
         let post = boton.closest(".post");
-
-        // Si ya existe el menú, lo cerramos
         let menuExistente = post.querySelector(".menu-comentarios");
 
         if (menuExistente) {
@@ -1929,45 +1896,34 @@ document.querySelectorAll(".act-comment").forEach(boton => {
             return;
         }
 
-        // Crear menú
         let lista = document.createElement("div");
         lista.className = "menu-comentarios";
 
-        // Título
         let titulo = document.createElement("div");
         titulo.className = "titulo-comentarios";
         titulo.innerHTML = "Selecciona un comentario";
         lista.appendChild(titulo);
 
-        // Opciones
         comentarios.forEach(comentario => {
-
             let opcion = document.createElement("div");
             opcion.className = "opcion-comentario";
             opcion.innerHTML = comentario;
 
             opcion.onclick = function() {
+                let nuevo = document.createElement("p");
+                nuevo.className = "comentario-publicado";
+                nuevo.innerHTML = "<b>Tú:</b> " + comentario;
+                post.appendChild(nuevo);
 
-             let nuevo = document.createElement("p");
-            nuevo.className = "comentario-publicado";
-            nuevo.innerHTML = "<b>Tú:</b> " + comentario;
-
-            post.appendChild(nuevo);
-
-            // Registrar en el historial
-            const idPost = post.dataset.postId;
-            fetch(window.BASE_URL + 'historial_controller/registrar/COMENTARIO/' + idPost);
-
-            lista.remove();
-};
-
+                const idPost = post.dataset.postId;
+                fetch(window.BASE_URL + 'HistorialController/registrar/COMENTARIO/' + idPost);
+                lista.remove();
+            };
             lista.appendChild(opcion);
         });
-
         post.appendChild(lista);
     };
-
 });
-
 </script>
+</body>
 </html>
