@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 class LikeModel
 {
     private $session;

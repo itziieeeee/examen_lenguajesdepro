@@ -1,4 +1,3 @@
-
 <?php
 
 use CodeIgniter\Router\RouteCollection;
@@ -18,3 +17,7 @@ $routes->get('HistorialController/registrar/(:segment)/(:num)', 'HistorialContro
 /*rutas para Favoritos (Guardar)*/
 $routes->get('FavoritoController/agregar/(:num)', 'FavoritoController::agregar/$1');
 $routes->get('FavoritoController/quitar/(:num)', 'FavoritoController::quitar/$1');
+
+/*rutas para la Estrella (Favoritos )*/
+$routes->get('EstrellaController/agregar/(:num)', 'EstrellaController::agregar/$1');
+$routes->get('EstrellaController/quitar/(:num)', 'EstrellaController::quitar/$1');
