@@ -57,7 +57,6 @@
           <div class="contact-row"><img src="<?= base_url('IMG/p1.png') ?>"><div><div class="cname">Selena Gomez</div><div class="cstat"><i class="fa-solid fa-circle"></i> En línea</div></div><button>+</button></div>
           <div class="contact-row"><img src="<?= base_url('IMG/p2.png') ?>"><div><div class="cname">Britani Spears</div><div class="cstat"><i class="fa-solid fa-circle"></i> En línea</div></div><button>+</button></div>
           <div class="contact-row"><img src="<?= base_url('IMG/p3.png') ?>"><div><div class="cname">Adam Sandler</div><div class="cstat"><i class="fa-solid fa-circle"></i> En línea</div></div><button>+</button></div>
-          <div class="contact-row"><img src="<?= base_url('IMG/p4.png') ?>"><div><div class="cname">Tom Hoollad</div><div class="cstat"><i class="fa-solid fa-circle"></i> En línea</div></div><button>+</button></div>
           <div class="contact-row"><img src="<?= base_url('IMG/p5.png') ?>"><div><div class="cname">Aime</div><div class="cstat"><i class="fa-solid fa-circle"></i> En línea</div></div><button>+</button></div>
         </div>
       </div>
@@ -394,7 +393,6 @@
             <i class="fa-<?= $tieneLike ? 'solid' : 'regular' ?> fa-heart"></i> LIKE
           </a>
           <div class="pact act-comment"><i class="fa-regular fa-comment"></i> COMENTAR</div>
-         
           <?php $tieneFav = in_array(9,$favoritos ?? []); ?>
           <a href="<?= $tieneFav ? base_url('index.php/FavoritoController/quitar/9') : base_url('index.php/FavoritoController/agregar/9') ?>" class="pact act-save<?= $tieneFav ? ' saved' : '' ?>">
             <i class="fa-<?= $tieneFav ? 'solid' : 'regular' ?> fa-bookmark"></i> GUARDAR
@@ -445,7 +443,7 @@
           <div class="uhandle">@max.pixup</div>
         </div>
         <div class="mood-row">
-          <span>Estado: inspirado hoy</span>
+          <span>Estado: triste hoy</span>
           <div class="flame"><i class="fa-solid fa-fire"></i></div>
         </div>
         <div class="stat-grid">
@@ -471,7 +469,7 @@
             <?php foreach ($pilaInvertida as $i =>$postId): ?>
               <?php
                 $pub = $publicaciones[$postId] ?? null;
-                $esTope = ($i === 0);
+                $esTope = ((int) $postId === (int) ($tope ?? -1)); // peek() del LikeModel
               ?>
               <?php if ($pub): ?>
                 <div class="stack-card<?= $esTope ? ' tope' : '' ?>" data-post-id="<?= $postId ?>">
@@ -563,8 +561,7 @@
     </div>
   </div>
 </div>
-<!-- IGNOREN ESTOO ESTO SOLO FUNCIONABA CON LA API 
--->
+
 <script>
   window.BASE_URL = "<?= base_url('index.php/') ?>";
 </script>
@@ -575,6 +572,7 @@
 <script src="<?= base_url('JS/reporte.js') ?>"></script>
 <script src="<?= base_url('JS/main.js') ?>"></script>
 <script src="<?= base_url('JS/inicio_extra.js') ?>"></script>
+
 
 </body>
 </html>

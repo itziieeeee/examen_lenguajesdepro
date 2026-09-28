@@ -19,10 +19,11 @@ class Home extends BaseController
         $estrellaModel    = new EstrellaModel();
 
         $data['likes']         = $likeModel->obtener_likes();
+        $data['tope']          = $likeModel->peek();               
         $data['publicaciones'] = $publicacionModel->obtener_publicaciones();
         $data['historial']     = $historialModel->obtener_historial();
-        $data['favoritos']     = $favoritoModel->obtener_favoritos();   // GUARDAR (bookmark)
-        $data['estrellas']     = $estrellaModel->obtener_estrellas();   // FAVORITO (estrella)
+        $data['favoritos']     = $favoritoModel->obtener_favoritos();
+        $data['estrellas']     = $estrellaModel->obtener_estrellas();
 
         return view('Inicio', $data);
     }
